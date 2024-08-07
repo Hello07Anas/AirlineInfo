@@ -17,6 +17,10 @@
 		4CCD77D72C63C66F00F5B20A /* AirlineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77D62C63C66F00F5B20A /* AirlineService.swift */; };
 		4CCD77DA2C63C6AA00F5B20A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77D92C63C6AA00F5B20A /* Constants.swift */; };
 		4CCD77DD2C63C6D900F5B20A /* Airline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77DC2C63C6D900F5B20A /* Airline.swift */; };
+		4CCD77E12C63C89000F5B20A /* DetailsOfAirline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E02C63C89000F5B20A /* DetailsOfAirline.swift */; };
+		4CCD77E32C63C8C400F5B20A /* AirlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E22C63C8C300F5B20A /* AirlineTableViewCell.swift */; };
+		4CCD77E52C63C8EC00F5B20A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E42C63C8EC00F5B20A /* Extensions.swift */; };
+		4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		4CCD77D62C63C66F00F5B20A /* AirlineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlineService.swift; sourceTree = "<group>"; };
 		4CCD77D92C63C6AA00F5B20A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4CCD77DC2C63C6D900F5B20A /* Airline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airline.swift; sourceTree = "<group>"; };
+		4CCD77E02C63C89000F5B20A /* DetailsOfAirline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOfAirline.swift; sourceTree = "<group>"; };
+		4CCD77E22C63C8C300F5B20A /* AirlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlineTableViewCell.swift; sourceTree = "<group>"; };
+		4CCD77E42C63C8EC00F5B20A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustoumAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				4CCD77D92C63C6AA00F5B20A /* Constants.swift */,
+				4CCD77E42C63C8EC00F5B20A /* Extensions.swift */,
+				4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -107,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				4CCD77C42C63C23F00F5B20A /* Main.storyboard */,
+				4CCD77E22C63C8C300F5B20A /* AirlineTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				4CCD77C22C63C23F00F5B20A /* ViewController.swift */,
+				4CCD77E02C63C89000F5B20A /* DetailsOfAirline.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -190,10 +202,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCD77E12C63C89000F5B20A /* DetailsOfAirline.swift in Sources */,
+				4CCD77E32C63C8C400F5B20A /* AirlineTableViewCell.swift in Sources */,
 				4CCD77C92C63C23F00F5B20A /* AirlineInfo.xcdatamodeld in Sources */,
 				4CCD77D72C63C66F00F5B20A /* AirlineService.swift in Sources */,
 				4CCD77C32C63C23F00F5B20A /* ViewController.swift in Sources */,
+				4CCD77E52C63C8EC00F5B20A /* Extensions.swift in Sources */,
 				4CCD77BF2C63C23F00F5B20A /* AppDelegate.swift in Sources */,
+				4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */,
 				4CCD77C12C63C23F00F5B20A /* SceneDelegate.swift in Sources */,
 				4CCD77DA2C63C6AA00F5B20A /* Constants.swift in Sources */,
 				4CCD77DD2C63C6D900F5B20A /* Airline.swift in Sources */,
@@ -348,6 +364,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N449UXFHA8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AirlineInfo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -375,6 +392,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N449UXFHA8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AirlineInfo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
