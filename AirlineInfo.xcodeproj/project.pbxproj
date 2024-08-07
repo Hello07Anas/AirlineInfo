@@ -21,6 +21,7 @@
 		4CCD77E32C63C8C400F5B20A /* AirlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E22C63C8C300F5B20A /* AirlineTableViewCell.swift */; };
 		4CCD77E52C63C8EC00F5B20A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E42C63C8EC00F5B20A /* Extensions.swift */; };
 		4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */; };
+		4CCD77E92C63D88100F5B20A /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		4CCD77E22C63C8C300F5B20A /* AirlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlineTableViewCell.swift; sourceTree = "<group>"; };
 		4CCD77E42C63C8EC00F5B20A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustoumAlert.swift; sourceTree = "<group>"; };
+		4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				4CCD77DC2C63C6D900F5B20A /* Airline.swift */,
+				4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				4CCD77D72C63C66F00F5B20A /* AirlineService.swift in Sources */,
 				4CCD77C32C63C23F00F5B20A /* ViewController.swift in Sources */,
 				4CCD77E52C63C8EC00F5B20A /* Extensions.swift in Sources */,
+				4CCD77E92C63D88100F5B20A /* CoreDataHelper.swift in Sources */,
 				4CCD77BF2C63C23F00F5B20A /* AppDelegate.swift in Sources */,
 				4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */,
 				4CCD77C12C63C23F00F5B20A /* SceneDelegate.swift in Sources */,

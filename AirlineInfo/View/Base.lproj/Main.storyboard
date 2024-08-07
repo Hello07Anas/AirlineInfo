@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="gfh-Jq-duf">
             <objects>
-                <viewController id="ATh-bv-Zaa" customClass="ViewController" customModule="Airline" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ATh-bv-Zaa" customClass="ViewController" customModule="AirlineInfo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ryo-IE-ld2">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,7 +36,7 @@
                                 <rect key="frame" x="16" y="198" width="361" height="620"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="airlineCell" rowHeight="100" id="eo1-Da-WSO" customClass="AirlineTableViewCell" customModule="Airline" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="airlineCell" rowHeight="100" id="eo1-Da-WSO" customClass="AirlineTableViewCell" customModule="AirlineInfo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="361" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eo1-Da-WSO" id="pAP-jy-cs6">
@@ -66,6 +66,9 @@
                                                     <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="22"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="addToFavBtn:" destination="eo1-Da-WSO" eventType="touchUpInside" id="e38-iX-Kxo"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -137,7 +140,7 @@
         <!--Details Of Airline-->
         <scene sceneID="7ra-0w-33I">
             <objects>
-                <viewController storyboardIdentifier="DetailsOfAirline" id="FbM-oe-UUa" customClass="DetailsOfAirline" customModule="Airline" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailsOfAirline" id="FbM-oe-UUa" customClass="DetailsOfAirline" customModule="AirlineInfo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6uG-fj-M4V">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

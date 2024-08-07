@@ -8,7 +8,7 @@
 import Foundation
 
 class AirlineService {
-    func fetchAirlines(completion: @escaping ([Airline]?, Error?) -> Void) {
+    func fetchAirlines(completion: @escaping ([AirlinePojo]?, Error?) -> Void) {
         guard let url = URL(string: K.Base_Url) else {
             completion(nil, NSError(domain: "Invalid URL", code: 0, userInfo: nil))
             return
@@ -26,7 +26,7 @@ class AirlineService {
             }
             
             do {
-                let airlines = try JSONDecoder().decode([Airline].self, from: data)
+                let airlines = try JSONDecoder().decode([AirlinePojo].self, from: data)
                 completion(airlines, nil)
             } catch {
                 completion(nil, error)
