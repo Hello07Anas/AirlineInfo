@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol DetailsOfAirlineDelegate: AnyObject {
+    func didUpdateFavoriteStatus()
+}
+
 class DetailsOfAirline: UIViewController {
     
-    var airline: Airline?
+    var airline: AirlinePojo?
     var isFavorited = false
+    weak var delegate: DetailsOfAirlineDelegate?
     
     @IBOutlet weak var imgAirline: UIImageView!
     @IBOutlet weak var btnIsFavorited: UIButton!
@@ -27,14 +32,22 @@ class DetailsOfAirline: UIViewController {
         }
         
         btnURL.titleLabel?.text = airline?.site
-        
         lblNameAirline.text = airline?.name
         
+        if let airlineName = airline?.name {
+            isFavorited = CoreDataHelper.shared.fetchFavorites().contains(airlineName)
+        }
+        
+        updateFavoriteButtonImage()
+    }
+    
+    private func updateFavoriteButtonImage() {
         let heartImage = isFavorited ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         btnIsFavorited.setImage(heartImage, for: .normal)
     }
     
     @IBAction func backBtn(_ sender: Any) {
+        delegate?.didUpdateFavoriteStatus()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -71,9 +84,33 @@ class DetailsOfAirline: UIViewController {
         }
     }
     
-    @IBAction func addToFavBtn(_ sender: Any) {
+    @IBAction func addToFavBtn(_ sender: UIButton) {
+        var config = sender.configuration ?? UIButton.Configuration.plain()
+        config.showsActivityIndicator = true
+        sender.configuration = config
         
+        sender.setNeedsUpdateConfiguration()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            guard let airlineName = self.airline?.name else { return }
+            
+            if self.isFavorited {
+                CoreDataHelper.shared.removeFavorite(name: airlineName)
+                self.isFavorited = false
+            } else {
+                CoreDataHelper.shared.addFavorite(name: airlineName, site: self.airline?.site ?? "")
+                self.isFavorited = true
+            }
+            
+            self.updateFavoriteButtonImage()
+            
+            var config = sender.configuration ?? UIButton.Configuration.plain()
+            config.showsActivityIndicator = false
+            sender.configuration = config
+        }
     }
+
+
 }
     
     /*

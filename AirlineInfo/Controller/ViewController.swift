@@ -13,17 +13,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var isPresentAllData = true
-    var airlines: [Airline] = []
+    var allAirlines: [AirlinePojo] = []
+    var displayedAirlines: [AirlinePojo] = []
     var favorites: Set<String> = []
     let airlineService = AirlineService()
-    //let favoritesManager = FavoritesManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         fetchAirlines()
+        fetchFavorites()
+    }
+    
+    func fetchFavorites() {
+        favorites = CoreDataHelper.shared.fetchFavorites()
+        updateDisplayedAirlines()
     }
     
     func fetchAirlines() {
@@ -37,42 +42,51 @@ class ViewController: UIViewController {
             
             if let airlines = airlines {
                 DispatchQueue.main.async {
-                    self.airlines = airlines
-                    //self.favorites = self.favoritesManager.favorites
-                    self.tableView.reloadData()
+                    self.allAirlines = airlines
+                    self.updateDisplayedAirlines()
                 }
             }
         }
     }
-
+    
+    func updateDisplayedAirlines() {
+        if isPresentAllData {
+            displayedAirlines = allAirlines
+        } else {
+            displayedAirlines = allAirlines.filter { favorites.contains($0.name) }
+        }
+        tableView.reloadData()
+    }
 
     @IBAction func segmentChange(_ sender: Any) {
         switch segmentOT.selectedSegmentIndex {
-        case 0: // present All data
+        case 0:
             isPresentAllData = true
-            tableView.reloadData()
-        case 1: // present Facorite
+        case 1:
             isPresentAllData = false
-            tableView.reloadData()
         default:
             break
         }
+        updateDisplayedAirlines()
     }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        airlines.count
+        displayedAirlines.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "airlineCell", for: indexPath) as! AirlineTableViewCell
-        let airline = airlines[indexPath.row]
+        let airline = displayedAirlines[indexPath.row]
         
+        let isFavorited = favorites.contains(airline.name)
         
-        cell.setUpCell(photo: UIImage(systemName: "airplane")!, name: airline.name, isFavorited: favorites.contains(airline.code))
+        cell.setUpCell(photo: UIImage(systemName: "airplane")!, name: airline.name, isFavorited: isFavorited)
         loadImage(for: airline.logoURL, into: cell)
+        
+        cell.delegate = self
         
         return cell
     }
@@ -91,14 +105,40 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedAirline = airlines[indexPath.row]
+        let selectedAirline = displayedAirlines[indexPath.row]
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let detailsVC = storyboard.instantiateViewController(withIdentifier: "DetailsOfAirline") as? DetailsOfAirline {
             detailsVC.airline = selectedAirline
+            detailsVC.delegate = self
             navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
-    
 }
+
+extension ViewController: AirlineTableViewCellDelegate, DetailsOfAirlineDelegate {
+    func didTapFavoriteButton(for cell: AirlineTableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            let airline = displayedAirlines[indexPath.row]
+            
+            if favorites.contains(airline.name) {
+                favorites.remove(airline.name)
+                CoreDataHelper.shared.removeFavorite(name: airline.name)
+            } else {
+                favorites.insert(airline.name)
+                CoreDataHelper.shared.addFavorite(name: airline.name, site: airline.site)
+            }
+            
+            DispatchQueue.main.async {
+                cell.stopActivityIndicator()
+                self.updateDisplayedAirlines()
+            }
+        }
+    }
+    
+    func didUpdateFavoriteStatus() {
+        fetchFavorites()
+    }
+}
+
 

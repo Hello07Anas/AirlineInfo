@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Airline: Codable {
+struct AirlinePojo: Codable {
     let site: String
     let code: String
     let alliance: String
