@@ -14,6 +14,9 @@
 		4CCD77C92C63C23F00F5B20A /* AirlineInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77C72C63C23F00F5B20A /* AirlineInfo.xcdatamodeld */; };
 		4CCD77CB2C63C24300F5B20A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CCD77CA2C63C24300F5B20A /* Assets.xcassets */; };
 		4CCD77CE2C63C24300F5B20A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 4CCD77CD2C63C24300F5B20A /* Base */; };
+		4CCD77D72C63C66F00F5B20A /* AirlineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77D62C63C66F00F5B20A /* AirlineService.swift */; };
+		4CCD77DA2C63C6AA00F5B20A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77D92C63C6AA00F5B20A /* Constants.swift */; };
+		4CCD77DD2C63C6D900F5B20A /* Airline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77DC2C63C6D900F5B20A /* Airline.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		4CCD77CA2C63C24300F5B20A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CCD77CD2C63C24300F5B20A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4CCD77CF2C63C24300F5B20A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CCD77D62C63C66F00F5B20A /* AirlineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlineService.swift; sourceTree = "<group>"; };
+		4CCD77D92C63C6AA00F5B20A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4CCD77DC2C63C6D900F5B20A /* Airline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +64,59 @@
 		4CCD77BD2C63C23F00F5B20A /* AirlineInfo */ = {
 			isa = PBXGroup;
 			children = (
+				4CCD77D82C63C69B00F5B20A /* Utilities */,
+				4CCD77D52C63C65900F5B20A /* Services */,
 				4CCD77BE2C63C23F00F5B20A /* AppDelegate.swift */,
 				4CCD77C02C63C23F00F5B20A /* SceneDelegate.swift */,
-				4CCD77C22C63C23F00F5B20A /* ViewController.swift */,
-				4CCD77C42C63C23F00F5B20A /* Main.storyboard */,
+				4CCD77DB2C63C6CE00F5B20A /* Model */,
+				4CCD77DE2C63C6F700F5B20A /* View */,
+				4CCD77DF2C63C70600F5B20A /* Controller */,
 				4CCD77CA2C63C24300F5B20A /* Assets.xcassets */,
 				4CCD77CC2C63C24300F5B20A /* LaunchScreen.storyboard */,
 				4CCD77CF2C63C24300F5B20A /* Info.plist */,
 				4CCD77C72C63C23F00F5B20A /* AirlineInfo.xcdatamodeld */,
 			);
 			path = AirlineInfo;
+			sourceTree = "<group>";
+		};
+		4CCD77D52C63C65900F5B20A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4CCD77D62C63C66F00F5B20A /* AirlineService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4CCD77D82C63C69B00F5B20A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4CCD77D92C63C6AA00F5B20A /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4CCD77DB2C63C6CE00F5B20A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4CCD77DC2C63C6D900F5B20A /* Airline.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4CCD77DE2C63C6F700F5B20A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4CCD77C42C63C23F00F5B20A /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4CCD77DF2C63C70600F5B20A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4CCD77C22C63C23F00F5B20A /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,9 +191,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CCD77C92C63C23F00F5B20A /* AirlineInfo.xcdatamodeld in Sources */,
+				4CCD77D72C63C66F00F5B20A /* AirlineService.swift in Sources */,
 				4CCD77C32C63C23F00F5B20A /* ViewController.swift in Sources */,
 				4CCD77BF2C63C23F00F5B20A /* AppDelegate.swift in Sources */,
 				4CCD77C12C63C23F00F5B20A /* SceneDelegate.swift in Sources */,
+				4CCD77DA2C63C6AA00F5B20A /* Constants.swift in Sources */,
+				4CCD77DD2C63C6D900F5B20A /* Airline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
