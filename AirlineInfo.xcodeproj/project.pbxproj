@@ -19,10 +19,10 @@
 		4CCD77DD2C63C6D900F5B20A /* Airline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77DC2C63C6D900F5B20A /* Airline.swift */; };
 		4CCD77E12C63C89000F5B20A /* DetailsOfAirline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E02C63C89000F5B20A /* DetailsOfAirline.swift */; };
 		4CCD77E32C63C8C400F5B20A /* AirlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E22C63C8C300F5B20A /* AirlineTableViewCell.swift */; };
-		4CCD77E52C63C8EC00F5B20A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E42C63C8EC00F5B20A /* Extensions.swift */; };
 		4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */; };
 		4CCD77E92C63D88100F5B20A /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */; };
 		4CCF36F52C64ACB600682EB9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCF36F42C64ACB600682EB9 /* SDWebImage */; };
+		4CCF36F72C64AE1C00682EB9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF36F62C64AE1C00682EB9 /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,9 +40,9 @@
 		4CCD77DC2C63C6D900F5B20A /* Airline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airline.swift; sourceTree = "<group>"; };
 		4CCD77E02C63C89000F5B20A /* DetailsOfAirline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOfAirline.swift; sourceTree = "<group>"; };
 		4CCD77E22C63C8C300F5B20A /* AirlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlineTableViewCell.swift; sourceTree = "<group>"; };
-		4CCD77E42C63C8EC00F5B20A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustoumAlert.swift; sourceTree = "<group>"; };
 		4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		4CCF36F62C64AE1C00682EB9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				4CCD77D92C63C6AA00F5B20A /* Constants.swift */,
-				4CCD77E42C63C8EC00F5B20A /* Extensions.swift */,
 				4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */,
+				4CCF36F62C64AE1C00682EB9 /* ImageLoader.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -218,13 +218,13 @@
 				4CCD77C92C63C23F00F5B20A /* AirlineInfo.xcdatamodeld in Sources */,
 				4CCD77D72C63C66F00F5B20A /* AirlineService.swift in Sources */,
 				4CCD77C32C63C23F00F5B20A /* ViewController.swift in Sources */,
-				4CCD77E52C63C8EC00F5B20A /* Extensions.swift in Sources */,
 				4CCD77E92C63D88100F5B20A /* CoreDataHelper.swift in Sources */,
 				4CCD77BF2C63C23F00F5B20A /* AppDelegate.swift in Sources */,
 				4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */,
 				4CCD77C12C63C23F00F5B20A /* SceneDelegate.swift in Sources */,
 				4CCD77DA2C63C6AA00F5B20A /* Constants.swift in Sources */,
 				4CCD77DD2C63C6D900F5B20A /* Airline.swift in Sources */,
+				4CCF36F72C64AE1C00682EB9 /* ImageLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
