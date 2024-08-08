@@ -26,10 +26,10 @@ class DetailsOfAirline: UIViewController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
         
-        if let logoURLString = airline?.logoURL, let logoURL = URL(string: logoURLString) {
-            let placeholderImage = UIImage(systemName: "airplane")
-            imgAirline.loadImage(from: logoURL, placeholder: placeholderImage)
-        }
+//        if let logoURLString = airline?.logoURL {// TODO: uncomment when api return valid URL and delete line 32
+//            ImageLoader.loadImage(from: logoURLString, into: imgAirline, placeholder: K.Placeholder_Image)
+//        }
+        ImageLoader.loadImage(from: K.Test_Img, into: imgAirline, placeholder: K.Placeholder_Img)
         
         btnURL.titleLabel?.text = airline?.site
         lblNameAirline.text = airline?.name

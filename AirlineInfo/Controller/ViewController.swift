@@ -99,26 +99,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let isFavorited = favorites.contains(airline.name)
         
         cell.setUpCell(photo: UIImage(systemName: "airplane")!, name: airline.name, isFavorited: isFavorited)
-        //loadImage(for: airline.logoURL, into: cell, index: indexPath)
-        loadImage(for: "https://th.bing.com/th/id/OIP.679HHhqtLgbantV1Z83kfAHaEH?rs=1&pid=ImgDetMain", into: cell, index: indexPath)
+
+        ImageLoader.loadImage(from: K.Test_Img, into: cell.imgAirlineLogo, placeholder: K.Placeholder_Img) { image in
+            cell.setUpCell(photo: image ?? K.Placeholder_Img!, name: airline.name, isFavorited: isFavorited)
+        }
+        
+//        ImageLoader.loadImage(from: airline.logoURL, into: cell.imgAirlineLogo, placeholder: K.Placeholder_Img) { image in
+//            cell.setUpCell(photo: image ?? K.Placeholder_Img!, name: airline.name, isFavorited: isFavorited)
+//        }// TODO: uncomment when api return valid URL and delete line 103 - 105
+        
         cell.delegate = self
         
         return cell
-    }
-    
-    private func loadImage(for urlString: String, into cell: AirlineTableViewCell, index: IndexPath) {
-        guard let url = URL(string: urlString) else { return }
-        
-        let airline = displayedAirlines[index.row]
-        let isFavorited = favorites.contains(airline.name)
-
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    cell.setUpCell(photo: image, name: cell.lblAirLineName.text ?? "", isFavorited: isFavorited)
-                }
-            }
-        }.resume()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
