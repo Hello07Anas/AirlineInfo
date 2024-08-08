@@ -13,6 +13,7 @@ protocol DetailsOfAirlineDelegate: AnyObject {
 
 class DetailsOfAirline: UIViewController {
     
+    private let airlineDetailsManager = AirlineDetailsManager()
     var airline: AirlinePojo?
     var isFavorited = false
     weak var delegate: DetailsOfAirlineDelegate?
@@ -23,95 +24,80 @@ class DetailsOfAirline: UIViewController {
     @IBOutlet weak var btnURL: UIButton!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        
-//        if let logoURLString = airline?.logoURL {// TODO: uncomment when api return valid URL and delete line 32
-//            ImageLoader.loadImage(from: logoURLString, into: imgAirline, placeholder: K.Placeholder_Image)
-//        }
-        ImageLoader.loadImage(from: K.Test_Img, into: imgAirline, placeholder: K.Placeholder_Img)
-        
-        btnURL.titleLabel?.text = airline?.site
-        lblNameAirline.text = airline?.name
-        
-        if let airlineName = airline?.name {
-            isFavorited = CoreDataHelper.shared.fetchFavorites().contains(airlineName)
+            super.viewDidLoad()
+            navigationController?.setNavigationBarHidden(true, animated: false)
+            setupUI()
         }
         
-        updateFavoriteButtonImage()
-    }
-    
-    private func updateFavoriteButtonImage() {
-        let heartImage = isFavorited ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-        btnIsFavorited.setImage(heartImage, for: .normal)
-    }
-    
-    @IBAction func backBtn(_ sender: Any) {
-        delegate?.didUpdateFavoriteStatus()
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func callNumberBtn(_ sender: Any) {
-        let phoneNumber = "+201274348083" //all links return number = "" so it defult number
-        if let phoneURL = URL(string: "tel://\(phoneNumber)") {
-            if UIApplication.shared.canOpenURL(phoneURL) {
+        private func setupUI() {
+            guard let airline = airline else {
+                showErrorAlert(title: "Error", message: "Airline information is missing.")
+                return
+            }
+            
+            //ImageLoader.loadImage(from: logoURLString, into: imgAirline, placeholder: K.Placeholder_Image)// TODO: uncomment when api return valid URL and delete next line
+            ImageLoader.loadImage(from: K.Test_Img, into: imgAirline, placeholder: K.Placeholder_Img)
+
+            lblNameAirline.text = airline.name
+            btnURL.setTitle(airline.site, for: .normal)
+            updateFavoriteButtonImage()
+        }
+        
+        private func updateFavoriteButtonImage() {
+            guard let airlineName = airline?.name else { return }
+            let heartImage = airlineDetailsManager.isFavorited(name: airlineName) ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+            btnIsFavorited.setImage(heartImage, for: .normal)
+        }
+        
+        @IBAction func backBtn(_ sender: Any) {
+            delegate?.didUpdateFavoriteStatus()
+            navigationController?.popViewController(animated: true)
+        }
+        
+        @IBAction func callNumberBtn(_ sender: Any) {
+            let phoneNumber = "+201274348083" // default number
+            if let phoneURL = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(phoneURL) {
                 UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
             } else {
-                CustoumAlert.showAlert(title: "Error", message: "Your device cannot make phone calls.", preferredStyle: .alert, from: self)
+                showErrorAlert(title: "Error", message: "Invalid phone number URL or your device cannot make phone calls.")
             }
-        } else {
-            CustoumAlert.showAlert(title: "Error", message: "Invalid phone number URL.", preferredStyle: .alert, from: self)
-        }
-    }
-    
-    
-    @IBAction func openURLBtn(_ sender: Any) {
-        guard let airline = airline else {
-            CustoumAlert.showAlert(title: "Error", message: "Airline information is missing.", preferredStyle: .alert, from: self)
-            return
         }
         
-        let urlString = airline.site
-        
-        if !urlString.isEmpty, let url = URL(string: urlString) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                CustoumAlert.showAlert(title: "Error", message: "Your device cannot open this URL.", preferredStyle: .alert, from: self)
+        @IBAction func openURLBtn(_ sender: Any) {
+            guard let urlString = airline?.site, let url = URL(string: urlString), !urlString.isEmpty, UIApplication.shared.canOpenURL(url) else {
+                showErrorAlert(title: "Error", message: "Invalid URL or your device cannot open this URL.")
+                return
             }
-        } else {
-            CustoumAlert.showAlert(title: "Error", message: "Invalid URL.", preferredStyle: .alert, from: self)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-    }
-    
-    @IBAction func addToFavBtn(_ sender: UIButton) {
-        var config = sender.configuration ?? UIButton.Configuration.plain()
-        config.showsActivityIndicator = true
-        sender.configuration = config
         
-        sender.setNeedsUpdateConfiguration()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            guard let airlineName = self.airline?.name else { return }
-            
-            if self.isFavorited {
-                CoreDataHelper.shared.removeFavorite(name: airlineName)
-                self.isFavorited = false
-            } else {
-                CoreDataHelper.shared.addFavorite(name: airlineName, site: self.airline?.site ?? "")
-                self.isFavorited = true
-            }
-            
-            self.updateFavoriteButtonImage()
-            
+        @IBAction func addToFavBtn(_ sender: UIButton) {
             var config = sender.configuration ?? UIButton.Configuration.plain()
-            config.showsActivityIndicator = false
+            config.showsActivityIndicator = true
             sender.configuration = config
+            sender.setNeedsUpdateConfiguration()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                guard let airlineName = self.airline?.name else { return }
+                
+                if self.airlineDetailsManager.isFavorited(name: airlineName) {
+                    self.airlineDetailsManager.removeFavorite(name: airlineName)
+                } else {
+                    self.airlineDetailsManager.addFavorite(name: airlineName, site: self.airline?.site ?? "")
+                }
+                
+                self.updateFavoriteButtonImage()
+                
+                var config = sender.configuration ?? UIButton.Configuration.plain()
+                config.showsActivityIndicator = false
+                sender.configuration = config
+            }
+        }
+        
+        private func showErrorAlert(title: String, message: String) {
+            CustoumAlert.showAlert(title: title, message: message, preferredStyle: .alert, from: self)
         }
     }
-
-
-}
     
     /*
     // MARK: - Navigation

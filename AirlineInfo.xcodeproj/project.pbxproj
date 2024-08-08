@@ -23,6 +23,8 @@
 		4CCD77E92C63D88100F5B20A /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */; };
 		4CCF36F52C64ACB600682EB9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCF36F42C64ACB600682EB9 /* SDWebImage */; };
 		4CCF36F72C64AE1C00682EB9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF36F62C64AE1C00682EB9 /* ImageLoader.swift */; };
+		4CCF36F92C64B9A700682EB9 /* AirllineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF36F82C64B9A700682EB9 /* AirllineManager.swift */; };
+		4CCF36FB2C64BC8400682EB9 /* AirlineDetailsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF36FA2C64BC8400682EB9 /* AirlineDetailsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustoumAlert.swift; sourceTree = "<group>"; };
 		4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		4CCF36F62C64AE1C00682EB9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		4CCF36F82C64B9A700682EB9 /* AirllineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirllineManager.swift; sourceTree = "<group>"; };
+		4CCF36FA2C64BC8400682EB9 /* AirlineDetailsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlineDetailsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,8 @@
 			children = (
 				4CCD77DC2C63C6D900F5B20A /* Airline.swift */,
 				4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */,
+				4CCF36F82C64B9A700682EB9 /* AirllineManager.swift */,
+				4CCF36FA2C64BC8400682EB9 /* AirlineDetailsManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,7 +226,9 @@
 				4CCD77C32C63C23F00F5B20A /* ViewController.swift in Sources */,
 				4CCD77E92C63D88100F5B20A /* CoreDataHelper.swift in Sources */,
 				4CCD77BF2C63C23F00F5B20A /* AppDelegate.swift in Sources */,
+				4CCF36F92C64B9A700682EB9 /* AirllineManager.swift in Sources */,
 				4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */,
+				4CCF36FB2C64BC8400682EB9 /* AirlineDetailsManager.swift in Sources */,
 				4CCD77C12C63C23F00F5B20A /* SceneDelegate.swift in Sources */,
 				4CCD77DA2C63C6AA00F5B20A /* Constants.swift in Sources */,
 				4CCD77DD2C63C6D900F5B20A /* Airline.swift in Sources */,

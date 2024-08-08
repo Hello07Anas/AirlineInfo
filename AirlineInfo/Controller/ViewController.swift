@@ -9,15 +9,12 @@ import UIKit
 import SDWebImage
 
 class ViewController: UIViewController {
-
     @IBOutlet weak var segmentOT: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
     var isPresentAllData = true
-    var allAirlines: [AirlinePojo] = []
     var displayedAirlines: [AirlinePojo] = []
-    var favorites: Set<String> = []
-    let airlineService = AirlineService()
+    let airlineManager = AirlineManager()
     let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
@@ -25,7 +22,6 @@ class ViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         setupRefreshControl()
         fetchAirlines()
-        fetchFavorites()
     }
     
     func setupRefreshControl() {
@@ -37,38 +33,26 @@ class ViewController: UIViewController {
         fetchAirlines()
     }
     
-    func fetchFavorites() {
-        favorites = CoreDataHelper.shared.fetchFavorites()
-        updateDisplayedAirlines()
-    }
-    
     func fetchAirlines() {
-        airlineService.fetchAirlines { [weak self] airlines, error in
-            guard let self = self else { return }
-            
-            if let error = error {
+        airlineManager.fetchAirlines { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.airlineManager.fetchFavorites()
+                self?.updateDisplayedAirlines()
+            case .failure(let error):
                 print("Error fetching data: \(error)")
-                DispatchQueue.main.async {
-                    self.refreshControl.endRefreshing()
-                }
-                return
             }
-            
-            if let airlines = airlines {
-                self.allAirlines = airlines
-
-                DispatchQueue.main.async {
-                    self.fetchFavorites()
-                    self.updateDisplayedAirlines()
-                    self.refreshControl.endRefreshing()
-                }
+            DispatchQueue.main.async {
+                self?.refreshControl.endRefreshing()
             }
         }
     }
     
     func updateDisplayedAirlines() {
-        displayedAirlines = isPresentAllData ? allAirlines : allAirlines.filter { favorites.contains($0.name) }
-        tableView.reloadData()
+        displayedAirlines = airlineManager.updateDisplayedAirlines(isPresentAllData: isPresentAllData)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
     @IBAction func segmentChange(_ sender: Any) {
@@ -96,17 +80,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "airlineCell", for: indexPath) as! AirlineTableViewCell
         let airline = displayedAirlines[indexPath.row]
         
-        let isFavorited = favorites.contains(airline.name)
+        let isFavorited = airlineManager.favorites.contains(airline.name)
         
         cell.setUpCell(photo: UIImage(systemName: "airplane")!, name: airline.name, isFavorited: isFavorited)
 
+        //ImageLoader.loadImage(from: airline.logoURL, into: cell.imgAirlineLogo, placeholder: K.Placeholder_Img) { image in
+        //cell.setUpCell(photo: image ?? K.Placeholder_Img!, name: airline.name, isFavorited: isFavorited)
+        //}// TODO: uncomment when api return valid URL and delete next  ImageLoader
+        
         ImageLoader.loadImage(from: K.Test_Img, into: cell.imgAirlineLogo, placeholder: K.Placeholder_Img) { image in
             cell.setUpCell(photo: image ?? K.Placeholder_Img!, name: airline.name, isFavorited: isFavorited)
         }
-        
-//        ImageLoader.loadImage(from: airline.logoURL, into: cell.imgAirlineLogo, placeholder: K.Placeholder_Img) { image in
-//            cell.setUpCell(photo: image ?? K.Placeholder_Img!, name: airline.name, isFavorited: isFavorited)
-//        }// TODO: uncomment when api return valid URL and delete line 103 - 105
         
         cell.delegate = self
         
@@ -114,7 +98,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let selectedAirline = displayedAirlines[indexPath.row]
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -132,21 +115,12 @@ extension ViewController: AirlineTableViewCellDelegate, DetailsOfAirlineDelegate
     func didTapFavoriteButton(for cell: AirlineTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell) {
             let airline = displayedAirlines[indexPath.row]
-            
-            if favorites.contains(airline.name) {
-                favorites.remove(airline.name)
-                CoreDataHelper.shared.removeFavorite(name: airline.name)
-            } else {
-                favorites.insert(airline.name)
-                CoreDataHelper.shared.addFavorite(name: airline.name, site: airline.site)
-            }
-
+            airlineManager.toggleFavorite(for: airline.name)
             updateDisplayedAirlines()
-
         }
     }
     
     func didUpdateFavoriteStatus() {
-        fetchFavorites()
+        fetchAirlines()
     }
 }
