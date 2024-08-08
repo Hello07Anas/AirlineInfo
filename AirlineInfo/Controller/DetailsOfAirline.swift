@@ -91,7 +91,7 @@ class DetailsOfAirline: UIViewController {
         
         sender.setNeedsUpdateConfiguration()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             guard let airlineName = self.airline?.name else { return }
             
             if self.isFavorited {

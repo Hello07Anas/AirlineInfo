@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ViewController: UIViewController {
 
@@ -17,13 +18,23 @@ class ViewController: UIViewController {
     var displayedAirlines: [AirlinePojo] = []
     var favorites: Set<String> = []
     let airlineService = AirlineService()
-    
+    let refreshControl = UIRefreshControl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
+        setupRefreshControl()
         fetchAirlines()
         fetchFavorites()
+    }
+    
+    func setupRefreshControl() {
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        fetchAirlines()
     }
     
     func fetchFavorites() {
@@ -37,39 +48,43 @@ class ViewController: UIViewController {
             
             if let error = error {
                 print("Error fetching data: \(error)")
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                }
                 return
             }
             
             if let airlines = airlines {
+                self.allAirlines = airlines
+
                 DispatchQueue.main.async {
-                    self.allAirlines = airlines
+                    self.fetchFavorites()
                     self.updateDisplayedAirlines()
+                    self.refreshControl.endRefreshing()
                 }
             }
         }
     }
     
     func updateDisplayedAirlines() {
-        if isPresentAllData {
-            displayedAirlines = allAirlines
-        } else {
-            displayedAirlines = allAirlines.filter { favorites.contains($0.name) }
-        }
+        displayedAirlines = isPresentAllData ? allAirlines : allAirlines.filter { favorites.contains($0.name) }
         tableView.reloadData()
     }
 
     @IBAction func segmentChange(_ sender: Any) {
         switch segmentOT.selectedSegmentIndex {
-        case 0:
-            isPresentAllData = true
-        case 1:
-            isPresentAllData = false
-        default:
-            break
+            case 0:
+                isPresentAllData = true
+            case 1:
+                isPresentAllData = false
+            default:
+                break
         }
         updateDisplayedAirlines()
     }
 }
+
+// MARK: - TableView
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -84,20 +99,23 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let isFavorited = favorites.contains(airline.name)
         
         cell.setUpCell(photo: UIImage(systemName: "airplane")!, name: airline.name, isFavorited: isFavorited)
-        loadImage(for: airline.logoURL, into: cell)
-        
+        //loadImage(for: airline.logoURL, into: cell, index: indexPath)
+        loadImage(for: "https://th.bing.com/th/id/OIP.679HHhqtLgbantV1Z83kfAHaEH?rs=1&pid=ImgDetMain", into: cell, index: indexPath)
         cell.delegate = self
         
         return cell
     }
     
-    private func loadImage(for urlString: String, into cell: AirlineTableViewCell) {
+    private func loadImage(for urlString: String, into cell: AirlineTableViewCell, index: IndexPath) {
         guard let url = URL(string: urlString) else { return }
         
+        let airline = displayedAirlines[index.row]
+        let isFavorited = favorites.contains(airline.name)
+
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
-                    cell.setUpCell(photo: image, name: cell.lblAirLineName.text ?? "", isFavorited: false)
+                    cell.setUpCell(photo: image, name: cell.lblAirLineName.text ?? "", isFavorited: isFavorited)
                 }
             }
         }.resume()
@@ -116,6 +134,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - AirlineTableViewCellDelegate & DetailsOfAirlineDelegate
+
 extension ViewController: AirlineTableViewCellDelegate, DetailsOfAirlineDelegate {
     func didTapFavoriteButton(for cell: AirlineTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell) {
@@ -128,11 +148,9 @@ extension ViewController: AirlineTableViewCellDelegate, DetailsOfAirlineDelegate
                 favorites.insert(airline.name)
                 CoreDataHelper.shared.addFavorite(name: airline.name, site: airline.site)
             }
-            
-            DispatchQueue.main.async {
-                cell.stopActivityIndicator()
-                self.updateDisplayedAirlines()
-            }
+
+            updateDisplayedAirlines()
+
         }
     }
     
@@ -140,5 +158,3 @@ extension ViewController: AirlineTableViewCellDelegate, DetailsOfAirlineDelegate
         fetchFavorites()
     }
 }
-
-

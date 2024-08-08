@@ -22,6 +22,7 @@
 		4CCD77E52C63C8EC00F5B20A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E42C63C8EC00F5B20A /* Extensions.swift */; };
 		4CCD77E72C63CA6400F5B20A /* CustoumAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E62C63CA6400F5B20A /* CustoumAlert.swift */; };
 		4CCD77E92C63D88100F5B20A /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD77E82C63D88100F5B20A /* CoreDataHelper.swift */; };
+		4CCF36F52C64ACB600682EB9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCF36F42C64ACB600682EB9 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCF36F52C64ACB600682EB9 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +152,9 @@
 			dependencies = (
 			);
 			name = AirlineInfo;
+			packageProductDependencies = (
+				4CCF36F42C64ACB600682EB9 /* SDWebImage */,
+			);
 			productName = AirlineInfo;
 			productReference = 4CCD77BB2C63C23F00F5B20A /* AirlineInfo.app */;
 			productType = "com.apple.product-type.application";
@@ -178,6 +183,9 @@
 				Base,
 			);
 			mainGroup = 4CCD77B22C63C23F00F5B20A;
+			packageReferences = (
+				4CCF36F32C64ACB600682EB9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 4CCD77BC2C63C23F00F5B20A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -439,6 +447,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4CCF36F32C64ACB600682EB9 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4CCF36F42C64ACB600682EB9 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CCF36F32C64ACB600682EB9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4CCD77C72C63C23F00F5B20A /* AirlineInfo.xcdatamodeld */ = {
