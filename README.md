@@ -4,7 +4,7 @@ This project is a sample iOS application developed to display information about 
 
 ## Video Demonstration
 
-![Watch the video]([link-to-video](https://github.com/user-attachments/assets/559c5166-2917-4558-ad73-848182139554))
+https://github.com/user-attachments/assets/559c5166-2917-4558-ad73-848182139554
 
 
 ## Features
